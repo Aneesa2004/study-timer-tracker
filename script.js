@@ -1,3 +1,4 @@
+// Pomodoro Timer - JavaScript functionality for work and break sessions
 let timerDisplay = document.getElementById('timer');
 let startBtn = document.getElementById('startBtn');
 let pauseBtn = document.getElementById('pauseBtn');
