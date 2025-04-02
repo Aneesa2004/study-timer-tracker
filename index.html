@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Timer & Productivity Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Study Timer & Productivity Tracker</h1>
+    <nav>
+      <a href="index.html">Timer</a>
+      <a href="log.html">Study Log</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="timer-section">
+      <h2>Pomodoro Timer</h2>
+      <div class="timer-display" id="timer">25:00</div>
+      <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <p>Completed Sessions: <span id="sessionCount">0</span></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Aneesa's Productivity App</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productivity Dashboard</title>
+
+  <!-- Optional: Your CSS link -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js CDN (must come BEFORE your script that uses it) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Optional: Some basic inline styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2563eb; /* Tailwind Blue 600 */
+    }
+
+    .chart-container {
+      width: 80%;
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    nav {
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #2563eb;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation Links -->
+  <nav>
+    <a href="index.html">Timer</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+
+  <!-- Page Heading -->
+  <h1>Productivity Dashboard</h1>
+
+  <!-- Chart Container -->
+  <div class="chart-container">
+    <canvas id="sessionChart" width="400" height="200"></canvas>
+  </div>
+
+  <!-- Chart JS Script (can also be in an external file like dashboard.js) -->
+  <script>
+    // Grab the canvas element context
+    const ctx = document.getElementById('sessionChart').getContext('2d');
+
+    // Get sessions from localStorage (or default to 0)
+    let sessionsCompleted = localStorage.getItem('sessions') || 0;
+
+    // Parse to number in case it's still a string
+    sessionsCompleted = parseInt(sessionsCompleted);
+
+    // Create a bar chart
+    const sessionChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Sessions Completed'],
+        datasets: [{
+          label: 'Pomodoro Sessions',
+          data: [sessionsCompleted],
+          backgroundColor: '#60a5fa', // pastel blue
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Your Productivity Stats',
+            font: {
+              size: 18
+            }
+          },
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
+

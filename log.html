@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Log</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Study Log</h1>
+    <nav>
+      <a href="index.html">Timer</a>
+      <a href="log.html">Study Log</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="log-section">
+      <h2>Add a New Log</h2>
+      <form id="logForm">
+        <textarea id="logInput" placeholder="What did you accomplish?" required></textarea>
+        <button type="submit">Add Log</button>
+      </form>
+
+      <h2>Your Study Logs</h2>
+      <ul id="logList"></ul>
+    </section>
+  </main>
+
+  <footer>&copy; 2025 Aneesa's Productivity App</footer>
+
+  <script src="log.js"></script>
+</body>
+</html>
