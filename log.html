@@ -4,6 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Study Log</title>
+  <!-- Optional: Adding a Delete Feature, and a reorder Feature -->
+  <style>
+  .log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: grab;
+}
+
+.drag-handle {
+  cursor: grab;
+  padding: 5px;
+  font-size: 1.2em;
+  margin-right: 10px;
+}
+
+.log-text {
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.delete-btn:hover {
+  background: #cc0000;}
+  </style>
+
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
