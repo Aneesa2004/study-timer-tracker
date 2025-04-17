@@ -3,80 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Productivity Dashboard</title>
+  <title>Nightstalker Dashboard</title>
 
-  <!-- Optional: Your CSS link -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Chart.js CDN (must come BEFORE your script that uses it) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Optional: Some basic inline styles -->
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9fafb;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0a0a0f;
+      color: #d1d5db;
       margin: 0;
-      padding: 20px;
-      text-align: center;
+      padding: 0;
     }
 
-    h1 {
-      color: #2563eb; /* Tailwind Blue 600 */
+    header {
+      background-color: #1f1b2e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+    }
+
+    header h1 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+      margin-bottom: 15px;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #a78bfa;
+      margin: 0 12px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover {
+      color: #c084fc;
+    }
+
+    main {
+      padding: 30px 20px;
+      text-align: center;
     }
 
     .chart-container {
       width: 80%;
       max-width: 600px;
       margin: 40px auto;
-      background: #fff;
+      background: #1f1b2e;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
       padding: 20px;
     }
 
-    nav {
-      margin-bottom: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #2563eb;
-      margin: 0 10px;
-      font-weight: bold;
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1a1827;
+      color: #9ca3af;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Navigation Links -->
-  <nav>
-    <a href="index.html">Timer</a>
-    <a href="dashboard.html">Dashboard</a>
-  </nav>
+  <header>
+    <h1>Nightstalker Productivity Dashboard</h1>
+    <nav>
+      <a href="index.html">Timer</a>
+      <a href="log.html">Study Log</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
 
-  <!-- Page Heading -->
-  <h1>Productivity Dashboard</h1>
+  <main>
+    <div class="chart-container">
+      <canvas id="sessionChart" width="400" height="200"></canvas>
+    </div>
+  </main>
 
-  <!-- Chart Container -->
-  <div class="chart-container">
-    <canvas id="sessionChart" width="400" height="200"></canvas>
-  </div>
-
-  <!-- Chart JS Script (can also be in an external file like dashboard.js) -->
   <script>
-    // Grab the canvas element context
     const ctx = document.getElementById('sessionChart').getContext('2d');
+    let sessionsCompleted = parseInt(localStorage.getItem('sessions') || 0);
 
-    // Get sessions from localStorage (or default to 0)
-    let sessionsCompleted = localStorage.getItem('sessions') || 0;
-
-    // Parse to number in case it's still a string
-    sessionsCompleted = parseInt(sessionsCompleted);
-
-    // Create a bar chart
     const sessionChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -84,7 +100,7 @@
         datasets: [{
           label: 'Pomodoro Sessions',
           data: [sessionsCompleted],
-          backgroundColor: '#60a5fa', // pastel blue
+          backgroundColor: '#8b5cf6'
         }]
       },
       options: {
@@ -92,7 +108,8 @@
         plugins: {
           title: {
             display: true,
-            text: 'Your Productivity Stats',
+            text: 'Your Void-Infused Stats',
+            color: '#c4b5fd',
             font: {
               size: 18
             }
@@ -105,7 +122,19 @@
           y: {
             beginAtZero: true,
             ticks: {
-              stepSize: 1
+              stepSize: 1,
+              color: '#e5e7eb'
+            },
+            grid: {
+              color: '#374151'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#e5e7eb'
+            },
+            grid: {
+              color: '#374151'
             }
           }
         }
@@ -113,6 +142,8 @@
     });
   </script>
 
+  <footer>
+    <p>&copy; 2025 Aneesa and Ali's Productivity App</p>
+  </footer>
 </body>
 </html>
-
