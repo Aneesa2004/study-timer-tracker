@@ -1,4 +1,56 @@
-/* Reset */
+/* Light Mode: Hammer of Sol Titan Theme! */
+body.light-mode {
+  background-color: #fff4e6;
+  color: #4a2c12;
+}
+
+.light-mode header,
+.light-mode nav,
+.light-mode footer {
+  background-color: #ffbb6e;
+  color: #2b1a0e;
+  border-bottom: 3px solid #ff8933;
+}
+
+.light-mode .card,
+.light-mode .box,
+.light-mode .section {
+  background-color: #ffe2c0;
+  border: 2px solid #ff8933;
+  color: #3a1c00;
+  box-shadow: 0 2px 6px rgba(255, 140, 0, 0.3);
+}
+
+.light-mode button,
+.light-mode input[type="submit"] {
+  background-color: #ff8933;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.light-mode button:hover {
+  background-color: #e67300;
+}
+
+.light-mode a {
+  color: #b34700;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+  background-color: #ffbb6e;
+  padding: 0.5em 1em;
+  border-radius: 12px;
+  font-weight: bold;
+}
+/* Dark Mode */
 * {
   margin: 0;
   padding: 0;
