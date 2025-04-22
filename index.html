@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Study Timer & Productivity Tracker</title>
   <link rel="stylesheet" href="style.css" />
-
+  <label class="theme-toggle">
+    <input type="checkbox" id="theme-switch">
+    <span>☀️ / 🌙</span>
+  </label>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0a0a0f; /* Nightstalker dark background */
+      background-color: #0a0a0f;
       color: #e5e7eb;
     }
 
     header {
-      background-color: #1f1b2e; /* Shadowy purple */
+      background-color: #1f1b2e;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -55,6 +58,50 @@
       background-color: #1a1827;
       color: #9ca3af;
     }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .controls button {
+      background-color: #4c1d95;
+      color: #e5e7eb;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+    }
+
+    .controls button:hover {
+      background-color: #6d28d9;
+      transform: scale(1.05);
+    }
+
+    .controls button:active {
+      transform: scale(0.98);
+    }
+
+    .timer-display {
+      font-size: 4rem;
+      font-weight: bold;
+      margin: 20px 0;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+      color: #c084fc;
+    }
+
+    .session-counter {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 <body>
@@ -75,13 +122,16 @@
         <button id="startBtn">Start</button>
         <button id="pauseBtn">Pause</button>
         <button id="resetBtn">Reset</button>
+        <button id="end-session-btn">End Session</button>
       </div>
-      <p>Completed Sessions: <span id="sessionCount">0</span></p>
+      <div class="session-counter">
+        <p>Completed Sessions: <span id="sessionCount">0</span></p>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Aneesa, Ali, Lana, and Hiryti Productivity App</p>
+    <p>&copy; 2025 Aneesa, Ali, Lana, and Hiryti - Productivity App</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
