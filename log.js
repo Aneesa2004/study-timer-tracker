@@ -102,3 +102,21 @@ function handleDragLeave(e) {
 }
 
 window.onload = displayLogs;
+document.addEventListener("DOMContentLoaded", () => {
+  const switchToggle = document.getElementById("theme-switch");
+  const currentTheme = localStorage.getItem("theme");
+
+  if (currentTheme === "light") {
+    document.body.classList.add("light-mode");
+    switchToggle.checked = true;
+  }
+
+  switchToggle.addEventListener("change", () => {
+    document.body.classList.toggle("light-mode");
+    if (document.body.classList.contains("light-mode")) {
+      localStorage.setItem("theme", "light");
+    } else {
+      localStorage.setItem("theme", "dark");
+    }
+  });
+});
