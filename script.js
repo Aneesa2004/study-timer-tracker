@@ -1,20 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // === THEME TOGGLE ===
-  const themeSwitch = document.getElementById('theme-switch');
-  if (themeSwitch) {
-    themeSwitch.addEventListener('change', () => {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      if (sessionChart) updateChartColors(sessionChart, isLight);
-    });
+  const themeSwitch = document.getElementById("theme-switch");
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme === "light") {
+    document.body.classList.add("light-mode");
+    themeSwitch.checked = true;
   }
 
+  themeSwitch.addEventListener("change", () => {
+    document.body.classList.toggle("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    if (sessionChart) updateChartColors(sessionChart, isLight);
+  });
+
   // === POMODORO TIMER ===
-  const startBtn = document.getElementById('startBtn');
-  const stopBtn = document.getElementById('stopBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const timerDisplay = document.getElementById('timer');
-  let timer, timeLeft = 1500;
+  let workTime = 25 * 60;
+  let breakTime = 5 * 60;
+  let timeLeft = workTime;
+  let timer;
+  let isRunning = false;
+  let sessionsCompleted = 0;
+
+  const timerDisplay = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
+  const pauseBtn = document.getElementById("pauseBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const endSessionBtn = document.getElementById("end-session-btn");
+  const sessionCountDisplay = document.getElementById("sessionCount");
 
   function updateTimerDisplay() {
     const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
@@ -23,25 +36,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTimer() {
-    timer = setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        updateTimerDisplay();
-      } else {
-        clearInterval(timer);
-        alert('Time’s up!');
-      }
-    }, 1000);
+    if (!isRunning) {
+      timer = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timer);
+          isRunning = false;
+          alert("Time’s up! Take a break!");
+          incrementSessionCount();
+          resetTimer();
+        }
+      }, 1000);
+      isRunning = true;
+    }
   }
 
-  if (startBtn) startBtn.addEventListener('click', () => startTimer());
-  if (stopBtn) stopBtn.addEventListener('click', () => clearInterval(timer));
-  if (resetBtn) resetBtn.addEventListener('click', () => {
+  function pauseTimer() {
     clearInterval(timer);
-    timeLeft = 1500;
+    isRunning = false;
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timeLeft = workTime;
     updateTimerDisplay();
+    isRunning = false;
+  }
+
+  function incrementSessionCount() {
+    sessionsCompleted++;
+    sessionCountDisplay.textContent = sessionsCompleted;
+    localStorage.setItem('sessions', sessionsCompleted);
+  }
+
+  startBtn?.addEventListener("click", startTimer);
+  pauseBtn?.addEventListener("click", pauseTimer);
+  resetBtn?.addEventListener("click", resetTimer);
+  endSessionBtn?.addEventListener("click", () => {
+    incrementSessionCount();
+    resetTimer();
   });
 
+  let storedSessions = localStorage.getItem('sessions');
+  if (storedSessions) {
+    sessionsCompleted = parseInt(storedSessions);
+    sessionCountDisplay.textContent = sessionsCompleted;
+  }
   updateTimerDisplay();
 
   // === STUDY LOG ===
@@ -61,18 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
       studyForm.reset();
     });
 
-    // Drag-and-drop
     let draggedItem = null;
-
     studyList.addEventListener('dragstart', (e) => {
       draggedItem = e.target;
       e.target.classList.add('dragging');
     });
-
     studyList.addEventListener('dragend', (e) => {
       e.target.classList.remove('dragging');
     });
-
     studyList.addEventListener('dragover', (e) => {
       e.preventDefault();
       const afterElement = getDragAfterElement(studyList, e.clientY);
@@ -88,11 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
-        if (offset < 5 && offset > closest.offset) {
-          return { offset: offset, element: child };
-        } else {
-          return closest;
-        }
+        return (offset < 5 && offset > closest.offset) ? { offset, element: child } : closest;
       }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
   }
@@ -126,14 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+  }
 
-    // Color switch for light/dark mode
-    function updateChartColors(chart, isLight) {
-      const color = isLight ? 'black' : 'white';
-      chart.options.plugins.legend.labels.color = color;
-      chart.options.scales.x.ticks.color = color;
-      chart.options.scales.y.ticks.color = color;
-      chart.update();
-    }
+  function updateChartColors(chart, isLight) {
+    const color = isLight ? 'black' : 'white';
+    chart.options.plugins.legend.labels.color = color;
+    chart.options.scales.x.ticks.color = color;
+    chart.options.scales.y.ticks.color = color;
+    chart.update();
   }
 });
